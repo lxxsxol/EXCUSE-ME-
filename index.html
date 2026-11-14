@@ -121,6 +121,8 @@ body.in-room{background:#e4dcf8}.in-room>nav,.in-room>footer,.in-room main>secti
 #approval-source-text,.approval .choice{white-space:pre-wrap;overflow-wrap:anywhere}.approval fieldset{min-width:0}.approval .choice input{margin-right:.5rem}.approval .choice b{display:inline}#approval-source{margin-block:1rem}#approval-summary{padding:.65rem;background:#e4dcf8;border-radius:8px}
 
 .choice-rejected{border-style:dashed;background:#eee8ff}.rejected-note{display:block;margin-top:.4rem;font-size:.8rem;color:#5c4877}
+
+.meeting-playback-status{margin:0;padding:.45rem 1rem;border-bottom:1px solid #17151535;background:var(--paper);font-size:.78rem;color:#5c5264}.bubble{white-space:pre-wrap;overflow-wrap:anywhere;max-height:250px;overflow-y:auto;pointer-events:auto}
 </style>
 <nav><strong>excuse me!</strong><div class="nav-links"><a href="#team">회의 멤버</a><a class="nav-action" href="#demo">회의 체험하기 ↘</a></div></nav>
 <main>
@@ -135,7 +137,7 @@ body.in-room{background:#e4dcf8}.in-room>nav,.in-room>footer,.in-room main>secti
 <div class="ticker" aria-hidden="true"></div><div class="ticker reverse" aria-hidden="true"></div>
 <button id="ticker-toggle" type="button">흐르는 띠 멈추기</button></section>
 <section class="demo" id="demo"><div class="section"><div class="room-toolbar" hidden><button id="exit-room" type="button">← 안건으로 돌아가기</button><button id="toggle-chat" type="button" aria-expanded="false">에이전트 채팅</button><button id="open-approval" type="button" hidden>결재안 보기 ↘</button></div><div class="meeting-layout"><div class="room" id="room">
-<header><strong>문구 팀 회의실</strong><div><button id="pause-talk" type="button">자동 대화 끄기</button> <button id="next-talk" type="button">다음 발언</button></div></header>
+<header><strong>문구 팀 회의실</strong><div><button id="pause-talk" type="button">자동 대화 끄기</button> <button id="next-talk" type="button">다음 발언</button></div></header><p id="meeting-playback-status" class="meeting-playback-status" role="status" aria-live="polite">회의 전 · 잠깐의 잡담</p>
 <div class="floor">
 <div class="board" id="room-board">회의 전 · 잠깐의 잡담</div>
 <div class="table"><span>EXCUSE ME!</span><span id="excuse-prop" data-state="empty" aria-hidden="true">강아지 돌잔치</span></div>
@@ -401,8 +403,8 @@ function parseApprovalActivity(activity) {
 function beginLiveMeeting(agenda, reset = true) {
   liveMeeting = true;
   clearBubble();
-  byId('pause-talk').disabled = true;
-  byId('next-talk').disabled = true;
+  if (reset) resetLiveTurns();
+  else updateLiveTalkControls();
   byId('room-board').textContent = agenda;
   byId('agenda').textContent = agenda;
   byId('approval-agenda').textContent = agenda;
@@ -491,23 +493,111 @@ function receiveAgentActivity(activity, userID) {
     byId('approval-summary').textContent = '에이전트가 확인 중이에요. 채팅 질문에 답하면 정리된 후보가 여기에 표시돼요.';
   }
   if (!liveMeeting || !activity.text) return;
-  clearBubble();
-  const name = activity.from?.name || '';
-  const prefix = /전략|검증|인간관계|중재|실행/.test(name) ? name : activity.text.slice(0, 40);
-  const role = /전략/.test(prefix) ? 'strategy' : /검증/.test(prefix) ? 'check'
-    : /인간관계/.test(prefix) ? 'relation' : /실행/.test(prefix) ? 'executor' : 'moderator';
-  speaker = floor.querySelector('[data-seat="' + role + '"]');
-  speaker.classList.add('speaking');
-  bubble.querySelector('strong').textContent = speaker.querySelector('b').textContent;
-  bubble.querySelector('span').textContent = activity.text.length > 220 ? activity.text.slice(0, 220) + '…' : activity.text;
-  bubble.hidden = false;
-  placeBubble();
+  enqueueMeetingTurns(activity);
 }
 
 const room = byId('room');
 const floor = room.querySelector('.floor');
 const bubble = byId('bubble');
 const pauseTalk = byId('pause-talk');
+const meetingRoleNames = { strategy: '전략', check: '검증', relation: '인간관계', moderator: '중재', executor: '실행' };
+const meetingRoles = { 전략: 'strategy', 검증: 'check', 인간관계: 'relation', 중재: 'moderator', 실행: 'executor' };
+let liveTurns = [];
+let liveTurnIndex = -1;
+let liveTurnStarted = 0;
+function splitMeetingSpeech(text) {
+  const parts = [];
+  let rest = text.trim();
+  while (rest.length > 240) {
+    const head = rest.slice(0, 240);
+    const boundary = Math.max(head.lastIndexOf('. '), head.lastIndexOf('? '), head.lastIndexOf('! '), head.lastIndexOf('\n'), head.lastIndexOf(' '));
+    const end = boundary > 100 ? boundary + 1 : 240;
+    parts.push(rest.slice(0, end).trim());
+    rest = rest.slice(end).trim();
+  }
+  if (rest) parts.push(rest);
+  return parts;
+}
+function parseMeetingTurns(activity) {
+  const explicit = activity.channelData?.meeting?.turns || activity.value?.meeting?.turns;
+  if (Array.isArray(explicit)) {
+    return explicit.flatMap(turn => {
+      const role = meetingRoles[turn?.role] || (meetingRoleNames[turn?.role] ? turn.role : null);
+      return role && typeof turn.text === 'string'
+        ? splitMeetingSpeech(turn.text).map(text => ({ role, text })) : [];
+    });
+  }
+  if (typeof activity.text !== 'string') return [];
+  const name = activity.from?.name || '';
+  const namedRole = Object.keys(meetingRoles).find(role => name.includes(role));
+  const fallback = meetingRoles[namedRole] || 'moderator';
+  const turns = [];
+  let current = { role: fallback, lines: [] };
+  function flush() {
+    const text = current.lines.join('\n').trim();
+    if (text) turns.push(...splitMeetingSpeech(text).map(text => ({ role: current.role, text })));
+  }
+  for (const original of activity.text.split(/\r?\n/)) {
+    const line = plainLine(original).replace(/^[\p{Extended_Pictographic}\uFE0F\u200D\s]+/u, '').trim();
+    // Approval fields belong to the approval form, not to a character's speech.
+    if (/^(?:거절\s*승인서|승인서)(?:\s|$|[:：])/.test(line)) break;
+    const marker = line.match(/^\[?(전략|검증|인간관계|중재|실행)(?:\s*에이전트)?\]?\s*(?:[:：·\-]\s*(.*)|$)/);
+    if (marker) {
+      flush();
+      current = { role: meetingRoles[marker[1]], lines: marker[2] ? [marker[2]] : [] };
+    } else current.lines.push(original.trim());
+  }
+  flush();
+  return turns;
+}
+function updateLiveTalkControls() {
+  if (!liveMeeting) return;
+  pauseTalk.disabled = false;
+  byId('next-talk').disabled = liveTurnIndex + 1 >= liveTurns.length;
+  const position = liveTurnIndex < 0 ? 0 : liveTurnIndex + 1;
+  const current = liveTurns[liveTurnIndex];
+  byId('meeting-playback-status').textContent = current
+    ? meetingRoleNames[current.role] + ' 발언 · ' + position + '/' + liveTurns.length
+      + (autoTalk ? '' : ' · 자동 재생 꺼짐')
+    : '에이전트의 발언을 기다리고 있어요.';
+}
+function resetLiveTurns() {
+  clearBubble();
+  liveTurns = [];
+  liveTurnIndex = -1;
+  liveTurnStarted = 0;
+  updateLiveTalkControls();
+}
+function scheduleLiveTurn() {
+  clearTimeout(timer);
+  if (!liveMeeting || !autoTalk || !roomVisible || liveTurnIndex + 1 >= liveTurns.length) return;
+  const current = liveTurns[liveTurnIndex];
+  const duration = current ? Math.min(10000, Math.max(3200, current.text.length * 65)) : 0;
+  const remaining = Math.max(150, duration - (Date.now() - liveTurnStarted));
+  timer = setTimeout(showNextLiveTurn, remaining);
+}
+function showNextLiveTurn() {
+  if (!liveMeeting || liveTurnIndex + 1 >= liveTurns.length) return;
+  clearBubble();
+  const turn = liveTurns[++liveTurnIndex];
+  liveTurnStarted = Date.now();
+  speaker = floor.querySelector('[data-seat="' + turn.role + '"]');
+  speaker.classList.add('speaking');
+  bubble.querySelector('strong').textContent = meetingRoleNames[turn.role];
+  bubble.querySelector('span').textContent = turn.text;
+  bubble.hidden = false;
+  placeBubble();
+  updateLiveTalkControls();
+  scheduleLiveTurn();
+}
+function enqueueMeetingTurns(activity) {
+  const turns = parseMeetingTurns(activity);
+  if (!turns.length) return;
+  liveTurns.push(...turns);
+  if (liveTurnIndex < 0) showNextLiveTurn();
+  else { updateLiveTalkControls(); scheduleLiveTurn(); }
+}
+
 const scenes = {
   idle: [
     ['strategy', '자, 오늘의 특가! 회의 전에 쿠키 한 입, 어떠십니까?'],
@@ -555,7 +645,7 @@ function placeBubble() {
   bubble.style.setProperty('--tail', Math.max(12, Math.min(85, tail)) + '%');
 }
 function showTurn() {
-  if (liveMeeting) return;
+  if (liveMeeting) { showNextLiveTurn(); return; }
   clearBubble();
   const lines = scenes[scene];
   const [role, line] = lines[turn % lines.length];
@@ -610,7 +700,8 @@ pauseTalk.addEventListener('click', () => {
   updateTalkButton();
   clearTimeout(timer);
   bubble.classList.remove('leaving');
-  if (autoTalk) showTurn();
+  if (liveMeeting) { updateLiveTalkControls(); scheduleLiveTurn(); }
+  else if (autoTalk) showTurn();
 });
 byId('next-talk').addEventListener('click', showTurn);
 window.addEventListener('resize', placeBubble, {passive: true});
@@ -621,6 +712,7 @@ if ('IntersectionObserver' in window) {
       clearTimeout(timer);
       return;
     }
+    if (liveMeeting) { scheduleLiveTurn(); return; }
     if ((autoTalk && (scene === 'idle' || turn < scenes[scene].length)) || turn === 0) showTurn();
   }, {threshold: .25});
   talkObserver.observe(room);
@@ -701,7 +793,9 @@ function leaveRoom() {
   history.replaceState(null, '', '#demo');
   renderRoute();
   clearDecision();
+  resetLiveTurns();
   liveMeeting = false;
+  byId('meeting-playback-status').textContent = '회의 전 · 잠깐의 잡담';
   byId('pause-talk').disabled = false;
   byId('next-talk').disabled = false;
   changeScene('idle', '회의 전 · 잠깐의 잡담');
@@ -725,6 +819,11 @@ window.addEventListener('popstate', () => {
     clearDecision();
     beginLiveMeeting(topic.value.trim() || '회의 안건', false);
   } else {
+    resetLiveTurns();
+    liveMeeting = false;
+    byId('pause-talk').disabled = false;
+    byId('next-talk').disabled = false;
+    byId('meeting-playback-status').textContent = '회의 전 · 잠깐의 잡담';
     changeScene('idle', '회의 전 · 잠깐의 잡담');
   }
 });
