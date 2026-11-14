@@ -119,6 +119,8 @@ body.in-room{background:#e4dcf8}.in-room>nav,.in-room>footer,.in-room main>secti
 .in-room .chat-scroll.agent-chat{height:clamp(340px,55svh,540px)}
 
 #approval-source-text,.approval .choice{white-space:pre-wrap;overflow-wrap:anywhere}.approval fieldset{min-width:0}.approval .choice input{margin-right:.5rem}.approval .choice b{display:inline}#approval-source{margin-block:1rem}#approval-summary{padding:.65rem;background:#e4dcf8;border-radius:8px}
+
+.choice-rejected{border-style:dashed;background:#eee8ff}.rejected-note{display:block;margin-top:.4rem;font-size:.8rem;color:#5c4877}
 </style>
 <nav><strong>excuse me!</strong><div class="nav-links"><a href="#team">회의 멤버</a><a class="nav-action" href="#demo">회의 체험하기 ↘</a></div></nav>
 <main>
@@ -192,7 +194,10 @@ form.addEventListener('submit', async (event) => {
   }
 });
 byId('approval-choices').addEventListener('change', () => {
-  confirm.disabled = approvalSending || !options.some(option => option.checked);
+  const selected = options.find(option => option.checked);
+  confirm.disabled = approvalSending || !selected;
+  confirm.textContent = selected && approvalPacket?.options[Number(selected.value)]?.kind === 'rejected'
+    ? '이 아이디어로 농담 문구 받기' : '선택한 안 결재하기';
 });
 confirm.addEventListener('click', async () => {
   const selected = options.find(option => option.checked);
@@ -204,25 +209,32 @@ confirm.addEventListener('click', async () => {
   byId('approval-choices').disabled = true;
   const packet = approvalPacket;
   const revision = approvalRevision;
-  approvedMessage = '거절 승인서에서 다음 문구를 선택해 결재합니다.\n안건: ' + packet.agenda
+  const isRejected = candidate.kind === 'rejected';
+  approvedMessage = isRejected
+    ? '거절 승인서의 탈락작(회의용 아이디어)을 선택합니다.\n안건: ' + packet.agenda
+      + '\n선택한 아이디어: ' + candidate.text
+      + '\n사실로 단정하지 말고 농담임을 드러내는 거절 문구로 다듬어 승인서에 다시 제안해 주세요. 아직 발송하거나 캘린더를 변경하지 말고 최종 문구에 대한 사용자 결재를 기다려 주세요.'
+    : '거절 승인서에서 다음 문구를 선택해 결재합니다.\n안건: ' + packet.agenda
     + '\n선택한 안: ' + candidate.title + '\n최종 문구: ' + candidate.text
     + (packet.recipient ? '\n수신자: ' + packet.recipient : '')
     + '\n채팅에서 확인된 수신자와 작업 범위 안에서만 진행하고, 누락된 정보가 있으면 먼저 확인해 주세요. 처리 결과를 알려 주세요.';
-  status.textContent = '결재 내용을 에이전트에 전달하고 있어요.';
+  status.textContent = isRejected ? '선택한 아이디어로 농담 문구를 요청하고 있어요.' : '결재 내용을 에이전트에 전달하고 있어요.';
   try {
     await window.ExcuseAgent.send(approvedMessage, {
-      kind: 'approval', sourceActivityId: packet.activityId,
+      kind: isRejected ? 'idea-selection' : 'approval', sourceActivityId: packet.activityId,
       agenda: packet.agenda, option: candidate, recipient: packet.recipient
     });
     if (revision !== approvalRevision) return;
-    showApprovalStamp('결재 전달');
-    status.textContent = '결재 내용을 에이전트에 전달했어요. 실제 처리 결과는 채팅에서 확인해 주세요.';
+    if (!isRejected) showApprovalStamp('결재 전달');
+    status.textContent = isRejected
+      ? '탈락작을 선택했어요. 에이전트가 제안하는 농담 문구를 확인해 주세요.'
+      : '결재 내용을 에이전트에 전달했어요. 실제 처리 결과는 채팅에서 확인해 주세요.';
   } catch {
     if (revision !== approvalRevision) return;
     approvedMessage = '';
     byId('approval-choices').disabled = false;
     confirm.disabled = false;
-    status.textContent = '결재 내용을 전달하지 못했습니다. 연결을 확인한 뒤 다시 시도해 주세요.';
+    status.textContent = '선택한 내용을 전달하지 못했습니다. 연결을 확인한 뒤 다시 시도해 주세요.';
   } finally { if (revision === approvalRevision) approvalSending = false; }
 });
 byId('reset').addEventListener('click', () => {
@@ -322,13 +334,18 @@ function parseApprovalActivity(activity) {
   for (let data of sources) {
     if (!data || typeof data !== 'object') continue;
     data = data.approval || data;
-    const candidates = data.options || data.candidates;
-    if (!Array.isArray(candidates)) continue;
+    const regular = data.options || data.candidates || [];
+    const rejected = data.rejectedOptions || data.rejectedIdeas || data.rejected || [];
+    const extras = (Array.isArray(rejected) ? rejected : [rejected]).filter(Boolean).map(option =>
+      typeof option === 'string' ? { title: '탈락작 · 회의용 아이디어', text: option, kind: 'rejected' }
+        : { ...option, kind: 'rejected', title: option.title || '탈락작 · 회의용 아이디어' });
+    const candidates = [...(Array.isArray(regular) ? regular : []), ...extras];
     const parsed = candidates.map((option, i) => {
       if (typeof option === 'string') return { title: (i + 1) + '안', text: option.trim() };
       if (!option || typeof option !== 'object') return null;
       return { title: textValue(option.title || option.label || option.reason) || (i + 1) + '안',
-        text: textValue(option.text || option.message || option.draft || option.content) };
+        text: textValue(option.text || option.message || option.draft || option.content || option.idea),
+        kind: option.kind === 'rejected' || /탈락작|회의용/.test(option.title || option.label || '') ? 'rejected' : 'draft' };
     }).filter(option => option?.text).slice(0, 10);
     if (parsed.length) return {
       agenda: textValue(data.agenda), keywords: textValue(data.keywords),
@@ -344,6 +361,12 @@ function parseApprovalActivity(activity) {
   let candidates = [], current;
   const hasApprovalHeading = /거절\s*승인서|거절\s*후보|최종\s*후보/.test(raw);
   for (const line of lines) {
+    const rejected = line.match(/^탈락작(?:\s*[（(][^）)]*[）)])?\s*[:：·]\s*(.*)$/);
+    if (rejected) {
+      current = { title: '탈락작 · 회의용 아이디어', kind: 'rejected', lines: rejected[1] ? [rejected[1]] : [] };
+      candidates.push(current);
+      continue;
+    }
     const match = line.match(numbered) || (hasApprovalHeading && line.match(numeric));
     if (match) {
       const title = match[4] ?? match[2];
@@ -360,7 +383,7 @@ function parseApprovalActivity(activity) {
     const quoted = content.match(/[“「]([\s\S]+?)[”」]/);
     const labeled = content.match(/(?:최종\s*문구|거절\s*문구|발송\s*문구|문구|메시지|예시)\s*[:：]\s*([\s\S]+)/);
     // A title alone is a reason, not a message the user can approve.
-    return { title: option.title || (i + 1) + '안', text: option.inlineText || quoted?.[1] || labeled?.[1] || content };
+    return { title: option.title || (i + 1) + '안', text: option.inlineText || quoted?.[1] || labeled?.[1] || content, kind: option.kind || 'draft' };
   }).filter(option => option.text).slice(0, 10);
   if (!candidates.length) {
     const final = raw.match(/(?:최종\s*문구|거절\s*문구|발송\s*문구)\s*(?:\*\*)?\s*[:：]\s*(?:\*\*)?\s*[“「"]?([^\n”」"]+)/);
@@ -427,10 +450,16 @@ function renderAgentApproval(packet) {
   choices.replaceChildren();
   const legend = document.createElement('legend'); legend.textContent = '내 상황에 맞는 문구 선택'; choices.append(legend);
   options = packet.options.map((candidate, index) => {
-    const label = document.createElement('label'); label.className = 'choice';
+    const label = document.createElement('label'); label.className = candidate.kind === 'rejected' ? 'choice choice-rejected' : 'choice';
     const radio = document.createElement('input'); radio.type = 'radio'; radio.name = 'reply'; radio.value = String(index);
     const title = document.createElement('b'); title.textContent = candidate.title;
     label.append(radio, title, document.createElement('br'), document.createTextNode(candidate.text));
+    if (candidate.kind === 'rejected') {
+      const note = document.createElement('small');
+      note.className = 'rejected-note';
+      note.textContent = '회의용 아이디어 · 선택하면 농담 문구로 다듬어 다시 제안해요.';
+      label.append(note);
+    }
     choices.append(label); return radio;
   });
   choices.disabled = false;
