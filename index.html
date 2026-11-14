@@ -117,6 +117,8 @@ body.in-room{background:#e4dcf8}.in-room>nav,.in-room>footer,.in-room main>secti
 .agent-chat #webchat p{margin:0 0 .5em}.agent-chat #webchat p:last-child{margin-bottom:0}
 @media(max-width:850px){.chat-scroll.agent-chat{height:420px}}
 .in-room .chat-scroll.agent-chat{height:clamp(340px,55svh,540px)}
+
+#approval-source-text,.approval .choice{white-space:pre-wrap;overflow-wrap:anywhere}.approval fieldset{min-width:0}.approval .choice input{margin-right:.5rem}.approval .choice b{display:inline}#approval-source{margin-block:1rem}#approval-summary{padding:.65rem;background:#e4dcf8;border-radius:8px}
 </style>
 <nav><strong>excuse me!</strong><div class="nav-links"><a href="#team">회의 멤버</a><a class="nav-action" href="#demo">회의 체험하기 ↘</a></div></nav>
 <main>
@@ -142,7 +144,7 @@ body.in-room{background:#e4dcf8}.in-room>nav,.in-room>footer,.in-room main>secti
 <div class="seat" data-seat="moderator"><span class="mascot" data-role="moderator" aria-hidden="true"><svg viewBox="7 2 114 112" aria-hidden="true" focusable="false"><g fill="none" stroke="#2D2923" stroke-width="3.3" stroke-linecap="round" stroke-linejoin="round"><path d="M30 59 10 71M96 62 118 51M39 77 35 94 46 100 41 111H28M86 77 91 94 80 100 86 111H99"/><path fill="#B7A0E1" d="M27 72Q20 35 52 24Q85 14 96 50L101 77Q65 93 27 72Z"/><path stroke="#ffffff" stroke-opacity=".22" stroke-width="2" d="M31 43q4-10 13-13"/><g fill="#2D2923" stroke="none"><ellipse cx="44" cy="50" rx="3.5" ry="6"/><ellipse cx="83" cy="50" rx="3.5" ry="6"/></g><path d="M49 65Q63 84 78 65"/><path fill="#B6D9EC" d="M36 30Q24 24 41 15L60 8Q82 12 89 27Q93 38 81 35Q75 44 65 36Q55 42 49 35Q40 41 36 30Z"/><rect x="58" y="3" width="22" height="11" rx="5" fill="#F3E7D2" transform="rotate(16 69 8)"/><path d="M66 20v12m-6-6h12m-10-4 8 8m0-8-8 8M41 25q4-4 9-6" stroke-width="1.2"/></g></svg></span><b>중재</b></div>
 <div class="bubble" id="bubble" aria-hidden="true" hidden><strong></strong><span></span></div>
 </div>
-</div><aside class="chat-panel" aria-labelledby="chat-title"><header><h3 id="chat-title">에이전트 채팅</h3></header><div class="agent-chat-state"><p id="agent-chat-status" role="status" aria-live="polite">채팅에 연결하는 중입니다...</p><button id="agent-chat-retry" type="button" hidden>다시 연결하기</button></div><div class="chat-scroll agent-chat" id="chat-scroll"><div id="webchat" role="region" aria-label="에이전트 채팅"></div></div></aside></div><div class="panel reveal"><span class="tag">시연 모드 · 예시 답장 · 실제 발송 없음</span><h2>긴급회의실</h2><form id="meeting"><label for="topic">거절하고 싶은 안건</label><input id="topic" type="text" required maxlength="100" value="내일 팀 회식 불참"><button>회의 시작</button></form><div id="result" hidden><div class="message"><b>중재 · 안건 접수</b><p id="agenda"></p></div><div class="message"><b>전략 · 세 가지 후보</b><p>강아지 돌잔치 후보 제안</p></div><div class="message"><b>검증 · 예시 검토</b><p>강아지 돌잔치는 확인 불가 · 농담으로만 허용</p></div><div class="message"><b>인간관계 · 표현 검토</b><p>휴식이 필요하다고 밝히거나 개인 사정을 공개하지 않는 안 제안</p></div><div class="approval"><h3>거절 승인서</h3><p><strong>키워드</strong> · 휴식, 개인 사정, 강아지 돌잔치(농담)</p><p><strong>확인 항목</strong> · 사용자 입력 안건</p><p><strong>관계 영향</strong> · 사정을 길게 설명하지 않고 참석이 어렵다고 전할 수 있어요. 3안도 농담은 밝히고 진짜 거절로 끝내요.</p><fieldset><legend>내 상황에 맞는 이유 선택</legend><label class="choice"><input type="radio" name="reply" value="1"> <b>1안 · 쉬는 시간 확보</b><br>혼자 쉬는 시간이 필요하다면 “오늘은 조금 쉬어가려고 해서 참석이 어렵습니다.”</label><label class="choice"><input type="radio" name="reply" value="2"> <b>2안 · 사정은 비공개</b><br>이유를 자세히 밝히기 어렵다면 “이번에는 참석이 어렵습니다. 초대해 주셔서 감사합니다.”</label><label class="choice choice-joke"><input type="radio" name="reply" value="joke"> <b>3안 · 회의용 아이디어</b> <span aria-hidden="true">🐶</span> 강아지 돌잔치<br>분위기를 풀고 싶다면 “강아지 돌잔치가 있어서요… 는 농담이고, 이번엔 참석이 어렵습니다 😅”<small class="joke-note">⚠ 농담이 통하는 사이에서만 쓰세요</small><span class="joke-stamp">확인 불가</span></label></fieldset><p><small>기안 · 전략 / 사실 검토 · 검증 / 관계 검토 · 인간관계 / 최종 결재 · 사용자</small></p><button id="confirm" type="button" disabled>선택한 안 결재하기</button> <button id="reset" type="button">다시 회의</button><p id="status" role="status"></p></div></div></div></div></section>
+</div><aside class="chat-panel" aria-labelledby="chat-title"><header><h3 id="chat-title">에이전트 채팅</h3></header><div class="agent-chat-state"><p id="agent-chat-status" role="status" aria-live="polite">채팅에 연결하는 중입니다...</p><button id="agent-chat-retry" type="button" hidden>다시 연결하기</button></div><div class="chat-scroll agent-chat" id="chat-scroll"><div id="webchat" role="region" aria-label="에이전트 채팅"></div></div></aside></div><div class="panel reveal"><span class="tag">에이전트 회의 · 사용자 최종 결재</span><h2>긴급회의실</h2><form id="meeting"><label for="topic">거절하고 싶은 안건</label><input id="topic" type="text" required maxlength="100" value="내일 팀 회식 불참"><button>회의 시작</button></form><div id="result" hidden><div class="message"><b>중재 · 안건 접수</b><p id="agenda"></p></div><div class="approval"><h3>거절 승인서</h3><p id="approval-summary" role="status">에이전트가 제안한 거절 후보를 기다리고 있어요.</p><p><strong>안건</strong> · <span id="approval-agenda">아직 등록된 안건이 없어요.</span></p><div id="approval-details"></div><fieldset id="approval-choices" disabled><legend>내 상황에 맞는 문구 선택</legend></fieldset><details id="approval-source" hidden><summary>에이전트 원문 확인</summary><p id="approval-source-text"></p></details><p><small>기안 · 에이전트 / 최종 결재 · 사용자</small></p><button id="confirm" type="button" disabled>선택한 안 결재하기</button> <button id="reset" type="button">다시 회의</button><p id="status" role="status"></p></div></div></div></div></section>
 <section class="section team-section reveal" id="team"><h2>오늘의 회의 멤버</h2><div class="team">
 <article class="person"><span class="mascot" data-role="strategy" aria-hidden="true"><svg viewBox="7 2 114 112" aria-hidden="true" focusable="false"><g fill="none" stroke="#2D2923" stroke-width="3.3" stroke-linecap="round" stroke-linejoin="round"><path d="M30 59 10 71M96 62 118 51M39 77 35 94 46 100 41 111H28M86 77 91 94 80 100 86 111H99"/><path fill="var(--member-color, #FFB65E)" d="M26 76Q11 43 30 31Q36 25 46 25Q43 9 59 18L66 22Q90 9 100 35Q112 43 104 68L97 78Q58 83 26 76Z"/><path stroke="#ffffff" stroke-opacity=".22" stroke-width="2" d="M31 43q4-10 13-13"/><g fill="#2D2923" stroke="none"><ellipse cx="44" cy="50" rx="3.5" ry="6"/><ellipse cx="83" cy="51" rx="4" ry="2"/></g><path d="M52 71Q67 76 76 63"/><path fill="#82736D" d="M58 79h12l-4 7 4 12-6 7-6-7 3-12Z"/></g></svg></span><strong>전략</strong><p>거절 후보를 세 가지로 펼쳐요.</p></article>
 <article class="person"><span class="mascot" data-role="check" aria-hidden="true"><svg viewBox="7 2 114 112" aria-hidden="true" focusable="false"><g fill="none" stroke="#2D2923" stroke-width="3.3" stroke-linecap="round" stroke-linejoin="round"><path d="M30 59 10 71M96 62 118 51M39 77 35 94 46 100 41 111H28M86 77 91 94 80 100 86 111H99"/><path fill="var(--member-color, #B3D2A7)" d="M29 22H91Q104 22 104 36V67Q104 81 90 81H32Q18 81 18 67V36Q18 22 29 22Z"/><path stroke="#ffffff" stroke-opacity=".22" stroke-width="2" d="M31 43q4-10 13-13"/><g fill="#2D2923" stroke="none"><ellipse cx="44" cy="50" rx="3.5" ry="6"/><ellipse cx="83" cy="50" rx="3.5" ry="6"/></g><path d="M54 66H70"/><rect x="30" y="39" width="24" height="20" rx="6"/><rect x="72" y="39" width="24" height="20" rx="6"/><path d="M54 47h18M22 46h8m66 0h6"/></g></svg></span><strong>검증</strong><p>확인한 내용에 도장을 찍어요.</p></article>
@@ -158,7 +160,13 @@ const topic = byId('topic');
 const result = byId('result');
 const confirm = byId('confirm');
 const status = byId('status');
-const options = [...document.querySelectorAll('[name=reply]')];
+let options = [];
+let approvalPacket = null;
+let liveMeeting = false;
+let approvalSending = false;
+let approvalRevision = 0;
+let approvedMessage = '';
+const receivedActivities = new Set();
 function clearDecision() {
   for (const option of options) {
     option.checked = false;
@@ -168,49 +176,54 @@ function clearDecision() {
   confirm.textContent = '선택한 안 결재하기';
   status.textContent = '';
 }
-const isJoke = () => options.some((option) => option.checked && option.value === 'joke');
-form.addEventListener('submit', (event) => {
+form.addEventListener('submit', async (event) => {
   event.preventDefault();
   const agenda = topic.value.trim();
   if (!agenda) { topic.focus(); return; }
-  clearDecision();
-  byId('agenda').textContent = agenda;
-  transcriptOpen = true;
-  syncChat();
+  beginLiveMeeting(agenda);
   history.pushState(null, '', '#meeting-room');
   renderRoute();
-  roomVisible = true;
-  changeScene('meeting', agenda);
-  byId('exit-room').focus({preventScroll:true});
+  approvalButton.hidden = false;
+  try {
+    await window.ExcuseAgent.send(agenda, { kind: 'agenda' });
+  } catch {
+    status.textContent = '안건을 보내지 못했습니다. 채팅 연결을 확인한 뒤 다시 회의해 주세요.';
+    openLiveApproval();
+  }
 });
-for (const option of options) {
-  option.addEventListener('change', () => {
-    confirm.disabled = false;
-    const joke = isJoke();
-    confirm.textContent = joke ? '농담으로 결재하기' : '선택한 안 결재하기';
-    const prop = byId('excuse-prop');
-    if (joke) {
-      prop.textContent = '강아지 돌잔치 · 농담';
-      prop.dataset.state = 'proposed';
-      playReaction('joke');
-    } else {
-      prop.textContent = '돌잔치 · 회의용';
-      prop.dataset.state = 'parked';
-    }
-  });
-}
-confirm.addEventListener('click', () => {
-  if (!options.some((option) => option.checked)) return;
-  const joke = isJoke();
-  changeScene('approved', '결재 완료');
-  showApprovalStamp(joke ? '농담 결재' : '결재');
-  status.textContent = joke
-    ? '실행 · 회의용 아이디어는 농담 문장으로만 보냅니다. 실제 메일은 보내지 않았습니다.'
-    : '실행 · 데모 결재 완료. 실제 메일은 보내지 않았습니다.';
+byId('approval-choices').addEventListener('change', () => {
+  confirm.disabled = approvalSending || !options.some(option => option.checked);
+});
+confirm.addEventListener('click', async () => {
+  const selected = options.find(option => option.checked);
+  if (!selected || !approvalPacket || approvalSending) return;
+  const candidate = approvalPacket.options[Number(selected.value)];
+  if (!candidate) return;
+  approvalSending = true;
   confirm.disabled = true;
-  options.forEach((option) => { option.disabled = true; });
-  status.tabIndex = -1;
-  status.focus();
+  byId('approval-choices').disabled = true;
+  const packet = approvalPacket;
+  const revision = approvalRevision;
+  approvedMessage = '거절 승인서에서 다음 문구를 선택해 결재합니다.\n안건: ' + packet.agenda
+    + '\n선택한 안: ' + candidate.title + '\n최종 문구: ' + candidate.text
+    + (packet.recipient ? '\n수신자: ' + packet.recipient : '')
+    + '\n채팅에서 확인된 수신자와 작업 범위 안에서만 진행하고, 누락된 정보가 있으면 먼저 확인해 주세요. 처리 결과를 알려 주세요.';
+  status.textContent = '결재 내용을 에이전트에 전달하고 있어요.';
+  try {
+    await window.ExcuseAgent.send(approvedMessage, {
+      kind: 'approval', sourceActivityId: packet.activityId,
+      agenda: packet.agenda, option: candidate, recipient: packet.recipient
+    });
+    if (revision !== approvalRevision) return;
+    showApprovalStamp('결재 전달');
+    status.textContent = '결재 내용을 에이전트에 전달했어요. 실제 처리 결과는 채팅에서 확인해 주세요.';
+  } catch {
+    if (revision !== approvalRevision) return;
+    approvedMessage = '';
+    byId('approval-choices').disabled = false;
+    confirm.disabled = false;
+    status.textContent = '결재 내용을 전달하지 못했습니다. 연결을 확인한 뒤 다시 시도해 주세요.';
+  } finally { if (revision === approvalRevision) approvalSending = false; }
 });
 byId('reset').addEventListener('click', () => {
   clearDecision();
@@ -281,6 +294,187 @@ if ('IntersectionObserver' in window && !matchMedia('(prefers-reduced-motion: re
   document.querySelectorAll('.reveal').forEach((section) => observer.observe(section));
 }
 
+function textValue(value) {
+  if (Array.isArray(value)) return value.map(textValue).filter(Boolean).join(' · ');
+  return typeof value === 'string' ? value.trim() : '';
+}
+function plainLine(value) {
+  return value.replace(/^\s*(?:#{1,6}\s*|>\s*)/g, '').replace(/\*\*|__/g, '').replace(/^\s*[-*]\s+/, '').trim();
+}
+function parseApprovalActivity(activity) {
+  let raw = textValue(activity.text);
+  const sources = [activity.value?.approval, activity.channelData?.approval, activity.value];
+  try { sources.push(JSON.parse(raw.replace(/^```(?:json)?\s*|\s*```$/g, ''))); } catch {}
+  for (const attachment of activity.attachments || []) {
+    const card = attachment.content;
+    if (card?.approval) sources.push(card.approval);
+    if (attachment.contentType === 'application/vnd.microsoft.card.adaptive' && card) {
+      const lines = [];
+      function walk(node) {
+        if (!node || typeof node !== 'object') return;
+        if (node.type === 'TextBlock' && typeof node.text === 'string') lines.push(node.text);
+        for (const key of ['body', 'items', 'columns']) if (Array.isArray(node[key])) node[key].forEach(walk);
+      }
+      walk(card);
+      raw += (raw ? '\n' : '') + lines.join('\n');
+    }
+  }
+  for (let data of sources) {
+    if (!data || typeof data !== 'object') continue;
+    data = data.approval || data;
+    const candidates = data.options || data.candidates;
+    if (!Array.isArray(candidates)) continue;
+    const parsed = candidates.map((option, i) => {
+      if (typeof option === 'string') return { title: (i + 1) + '안', text: option.trim() };
+      if (!option || typeof option !== 'object') return null;
+      return { title: textValue(option.title || option.label || option.reason) || (i + 1) + '안',
+        text: textValue(option.text || option.message || option.draft || option.content) };
+    }).filter(option => option?.text).slice(0, 10);
+    if (parsed.length) return {
+      agenda: textValue(data.agenda), keywords: textValue(data.keywords),
+      facts: textValue(data.facts || data.confirmedFacts),
+      relationshipImpact: textValue(data.relationshipImpact), recipient: textValue(data.recipient),
+      options: parsed, source: raw || JSON.stringify(data, null, 2), activityId: activity.id
+    };
+  }
+  if (!raw) return null;
+  const lines = raw.split(/\r?\n/).map(plainLine);
+  const numbered = /^(?:[-*]\s*)?(?:(?:제\s*)?(\d+)\s*안|(?:후보|옵션)\s*(\d+)|(?:안|선택지)\s*(\d+))\s*[.):：·\-]?\s*(.*)$/;
+  const numeric = /^(?:[-*]\s*)?(\d+)[.)]\s+(.+)$/;
+  let candidates = [], current;
+  const hasApprovalHeading = /거절\s*승인서|거절\s*후보|최종\s*후보/.test(raw);
+  for (const line of lines) {
+    const match = line.match(numbered) || (hasApprovalHeading && line.match(numeric));
+    if (match) {
+      const title = match[4] ?? match[2];
+      const inline = title?.match(/[“「"]([^”」"]+)[”」"]/);
+      current = { title: inline ? ((title.slice(0, inline.index).replace(/[:：·\s]+$/, '')) || (candidates.length + 1) + '안') : title || (candidates.length + 1) + '안', inlineText: inline?.[1], lines: [] };
+      candidates.push(current);
+    } else if (/^(?:키워드|확인\s*항목|사실\s*확인|관계\s*영향|수신자|탈락작|결재란|결재|최종\s*결재|선택|주의|참고)(?:\([^)]*\))?\s*[:：·]/.test(line)
+      || /^(?:몇\s*안|어떤|어느|원하시는|마음에|선택해|골라|결재해)/.test(line)) {
+      current = null;
+    } else if (current && line) current.lines.push(line);
+  }
+  candidates = candidates.map((option, i) => {
+    const content = option.lines.join('\n');
+    const quoted = content.match(/[“「]([\s\S]+?)[”」]/);
+    const labeled = content.match(/(?:최종\s*문구|거절\s*문구|발송\s*문구|문구|메시지|예시)\s*[:：]\s*([\s\S]+)/);
+    // A title alone is a reason, not a message the user can approve.
+    return { title: option.title || (i + 1) + '안', text: option.inlineText || quoted?.[1] || labeled?.[1] || content };
+  }).filter(option => option.text).slice(0, 10);
+  if (!candidates.length) {
+    const final = raw.match(/(?:최종\s*문구|거절\s*문구|발송\s*문구)\s*(?:\*\*)?\s*[:：]\s*(?:\*\*)?\s*[“「"]?([^\n”」"]+)/);
+    if (final) candidates.push({ title: '에이전트 제안 문구', text: final[1].trim() });
+  }
+  if (!candidates.length) return null;
+  function field(name) {
+    const line = lines.find(line => new RegExp('^(?:[-*]\\s*)?(?:' + name + ')(?:\\([^)]*\\))?\\s*[:：·]').test(line));
+    return line ? line.replace(new RegExp('^(?:[-*]\\s*)?(?:' + name + ')(?:\\([^)]*\\))?\\s*[:：·]\\s*'), '') : '';
+  }
+  return { agenda: field('안건'), keywords: field('키워드'), facts: field('확인\\s*항목|사실\\s*확인'),
+    relationshipImpact: field('관계\\s*영향'), recipient: field('수신자'), options: candidates,
+    source: raw, activityId: activity.id };
+}
+function beginLiveMeeting(agenda, reset = true) {
+  liveMeeting = true;
+  clearBubble();
+  byId('pause-talk').disabled = true;
+  byId('next-talk').disabled = true;
+  byId('room-board').textContent = agenda;
+  byId('agenda').textContent = agenda;
+  byId('approval-agenda').textContent = agenda;
+  byId('approval-summary').textContent = '에이전트가 제안한 거절 후보를 기다리고 있어요.';
+  transcriptOpen = true;
+  if (reset) {
+    approvalRevision += 1;
+    approvalSending = false;
+    clearDecision();
+    approvalPacket = null;
+    options = [];
+    byId('approval-choices').replaceChildren();
+    const legend = document.createElement('legend');
+    legend.textContent = '내 상황에 맞는 문구 선택';
+    byId('approval-choices').append(legend);
+    byId('approval-choices').disabled = true;
+    byId('approval-details').replaceChildren();
+    byId('approval-source').hidden = true;
+  }
+  syncChat();
+}
+function openLiveApproval(scroll = true) {
+  panel.classList.add('approval-open');
+  result.hidden = false;
+  if (scroll) confirm.closest('.approval').scrollIntoView({ block: 'start' });
+}
+function renderAgentApproval(packet) {
+  approvalRevision += 1;
+  approvalSending = false;
+  clearDecision();
+  approvalPacket = packet;
+  packet.agenda ||= byId('approval-agenda').textContent;
+  byId('approval-agenda').textContent = packet.agenda;
+  byId('approval-summary').textContent = '에이전트의 제안이에요. 최종 문구를 확인하고 결재해 주세요.';
+  const details = byId('approval-details');
+  details.replaceChildren();
+  for (const [label, value] of [['키워드', packet.keywords], ['확인 항목', packet.facts],
+    ['관계 영향', packet.relationshipImpact], ['수신자', packet.recipient]]) {
+    if (!value) continue;
+    const p = document.createElement('p');
+    const strong = document.createElement('strong'); strong.textContent = label;
+    p.append(strong, document.createTextNode(' · ' + value)); details.append(p);
+  }
+  const choices = byId('approval-choices');
+  choices.replaceChildren();
+  const legend = document.createElement('legend'); legend.textContent = '내 상황에 맞는 문구 선택'; choices.append(legend);
+  options = packet.options.map((candidate, index) => {
+    const label = document.createElement('label'); label.className = 'choice';
+    const radio = document.createElement('input'); radio.type = 'radio'; radio.name = 'reply'; radio.value = String(index);
+    const title = document.createElement('b'); title.textContent = candidate.title;
+    label.append(radio, title, document.createElement('br'), document.createTextNode(candidate.text));
+    choices.append(label); return radio;
+  });
+  choices.disabled = false;
+  byId('approval-source-text').textContent = packet.source;
+  byId('approval-source').hidden = false;
+  approvalButton.hidden = false;
+  openLiveApproval(false);
+}
+function receiveAgentActivity(activity, userID) {
+  if (!activity || !['message', 'event'].includes(activity.type)) return;
+  const key = activity.id && activity.id + ':' + JSON.stringify([activity.text, activity.value, activity.attachments]);
+  if (key && receivedActivities.has(key)) return;
+  if (key) { receivedActivities.add(key); if (receivedActivities.size > 200) receivedActivities.delete(receivedActivities.values().next().value); }
+  if (activity.from?.role === 'user' || activity.from?.id === userID) {
+    if (activity.type === 'message' && activity.text && activity.text !== approvedMessage
+      && activity.channelData?.excuseMe?.kind !== 'approval'
+      && activity.text !== byId('approval-agenda').textContent) {
+      beginLiveMeeting(activity.text);
+      approvalButton.hidden = false;
+    }
+    return;
+  }
+  const packet = parseApprovalActivity(activity);
+  if (packet) {
+    if (!liveMeeting) beginLiveMeeting(packet.agenda || topic.value.trim() || '회의 안건');
+    renderAgentApproval(packet);
+  }
+  if (liveMeeting && !packet && !approvalPacket && activity.type === 'message') {
+    byId('approval-summary').textContent = '에이전트가 확인 중이에요. 채팅 질문에 답하면 정리된 후보가 여기에 표시돼요.';
+  }
+  if (!liveMeeting || !activity.text) return;
+  clearBubble();
+  const name = activity.from?.name || '';
+  const prefix = /전략|검증|인간관계|중재|실행/.test(name) ? name : activity.text.slice(0, 40);
+  const role = /전략/.test(prefix) ? 'strategy' : /검증/.test(prefix) ? 'check'
+    : /인간관계/.test(prefix) ? 'relation' : /실행/.test(prefix) ? 'executor' : 'moderator';
+  speaker = floor.querySelector('[data-seat="' + role + '"]');
+  speaker.classList.add('speaking');
+  bubble.querySelector('strong').textContent = speaker.querySelector('b').textContent;
+  bubble.querySelector('span').textContent = activity.text.length > 220 ? activity.text.slice(0, 220) + '…' : activity.text;
+  bubble.hidden = false;
+  placeBubble();
+}
+
 const room = byId('room');
 const floor = room.querySelector('.floor');
 const bubble = byId('bubble');
@@ -332,6 +526,7 @@ function placeBubble() {
   bubble.style.setProperty('--tail', Math.max(12, Math.min(85, tail)) + '%');
 }
 function showTurn() {
+  if (liveMeeting) return;
   clearBubble();
   const lines = scenes[scene];
   const [role, line] = lines[turn % lines.length];
@@ -469,7 +664,7 @@ function renderRoute() {
   toolbar.hidden = !inRoom;
   panel.classList.remove('approval-open');
   result.hidden = true;
-  approvalButton.hidden = true;
+  approvalButton.hidden = !liveMeeting;
   syncChat();
   if (inRoom) window.scrollTo(0, 0);
 }
@@ -477,6 +672,9 @@ function leaveRoom() {
   history.replaceState(null, '', '#demo');
   renderRoute();
   clearDecision();
+  liveMeeting = false;
+  byId('pause-talk').disabled = false;
+  byId('next-talk').disabled = false;
   changeScene('idle', '회의 전 · 잠깐의 잡담');
   topic.scrollIntoView({block:'center'});
   topic.focus({preventScroll:true});
@@ -496,14 +694,14 @@ window.addEventListener('popstate', () => {
   renderRoute();
   if (location.hash === '#meeting-room') {
     clearDecision();
-    changeScene('meeting', topic.value.trim() || '회의 안건');
+    beginLiveMeeting(topic.value.trim() || '회의 안건', false);
   } else {
     changeScene('idle', '회의 전 · 잠깐의 잡담');
   }
 });
 if (location.hash === '#meeting-room') {
   renderRoute();
-  changeScene('meeting', topic.value.trim() || '회의 안건');
+  beginLiveMeeting(topic.value.trim() || '회의 안건', false);
 }
 </script>
 <script>
@@ -513,10 +711,12 @@ if (location.hash === '#meeting-room') {
   const status = document.getElementById('agent-chat-status');
   const retry = document.getElementById('agent-chat-retry');
   const host = document.getElementById('webchat');
-  const userID = 'web_' + crypto.randomUUID();
+  let userID = 'web_' + crypto.randomUUID();
   let directLine;
   let connection;
   let greeting;
+  let activities;
+  let online = false;
   let connecting = false;
   let sdkPromise;
 
@@ -544,6 +744,12 @@ if (location.hash === '#meeting-room') {
     status.textContent = '채팅에 연결하는 중입니다...';
     connection?.unsubscribe();
     greeting?.unsubscribe();
+    activities?.unsubscribe();
+    if (directLine && liveMeeting) {
+      beginLiveMeeting(byId('approval-agenda').textContent);
+      byId('approval-summary').textContent = '새 채팅에 연결하고 있어요. 연결 후 안건을 다시 보내 주세요.';
+    }
+    online = false;
     directLine?.end();
     let timeout;
     try {
@@ -583,7 +789,17 @@ if (location.hash === '#meeting-room') {
         showError('서버에서 연결 토큰을 받지 못했습니다. 연결 설정을 확인해 주세요.');
         return;
       }
+      // The broker binds its own user identity to the Direct Line token.
+      try {
+        const encoded = data.token.split('.')[1].replace(/-/g, '+').replace(/_/g, '/');
+        const boundUser = JSON.parse(atob(encoded)).user;
+        if (typeof boundUser === 'string' && boundUser) userID = boundUser;
+      } catch { /* Opaque tokens keep the generated browser identity. */ }
       directLine = webchat.createDirectLine({ token: data.token });
+      activities = directLine.activity$.subscribe({
+        next: activity => receiveAgentActivity(activity, userID),
+        error: () => showError('회의 응답을 받지 못했습니다. 다시 연결해 주세요.')
+      });
       webchat.renderWebChat({
         directLine, userID, locale: 'ko-KR',
         styleOptions: {
@@ -603,6 +819,7 @@ if (location.hash === '#meeting-room') {
       let greeted = false;
       connection = directLine.connectionStatus$.subscribe({
         next(value) {
+          online = value === 2;
           if (value === 2 && !greeted) {
             greeted = true;
             status.hidden = true;
@@ -625,9 +842,20 @@ if (location.hash === '#meeting-room') {
       connecting = false;
     }
   }
+  window.ExcuseAgent = {
+    send(text, context = {}) {
+      if (!online || !directLine) return Promise.reject(new Error('not connected'));
+      return new Promise((resolve, reject) => {
+        directLine.postActivity({
+          type: 'message', text, from: { id: userID }, locale: 'ko-KR',
+          channelData: { excuseMe: context }
+        }).subscribe({ next: resolve, error: reject });
+      });
+    }
+  };
   retry.addEventListener('click', connect);
   window.addEventListener('pagehide', () => {
-    connection?.unsubscribe(); greeting?.unsubscribe(); directLine?.end();
+    connection?.unsubscribe(); greeting?.unsubscribe(); activities?.unsubscribe(); directLine?.end();
   });
   connect();
 })();
