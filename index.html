@@ -46,7 +46,7 @@ h1 span:nth-child(2) i{animation-delay:.12s}
 .demo{background:linear-gradient(155deg,#d9ceff,var(--lilac) 65%)}.room{transform-origin:center top;transform:perspective(1100px) rotateX(var(--room-pitch,0deg)) translateY(var(--room-offset,0px));scroll-margin-top:1.5rem}.table{position:relative;box-shadow:0 9px #94ae52,0 12px var(--ink),0 22px 22px #75513f45}.table>span:first-child{opacity:.55}#excuse-prop{position:absolute;top:20%;right:12%;background:var(--paper);border:2px solid;border-radius:6px;padding:.3rem .5rem;font-size:clamp(.68rem,2.3vw,.96rem);box-shadow:3px 3px var(--ink);transform:translateY(-16px) rotate(-8deg) scale(.9);opacity:0;transition:transform .5s var(--ease),opacity .25s}#excuse-prop[data-state=proposed]{opacity:1;transform:translateY(0) rotate(-8deg)}#excuse-prop[data-state=parked]{opacity:1;transform:translate(9%,100%) rotate(10deg);background:#e7dcff}
 @media(max-width:700px){.paper-depth{transform:none;width:min(78%,340px)}.room{transform:none}}@media(prefers-reduced-motion:reduce){.paper-depth,.room{transform:none}}
 
-.meeting-layout{display:grid;grid-template-columns:minmax(0,2fr) minmax(240px,1fr);gap:14px;max-width:1100px;margin:0 auto 1.8rem}.meeting-layout .room{width:100%;margin:0}.chat-panel{background:var(--paper);border:2px solid;border-radius:18px;box-shadow:6px 6px var(--ink);min-width:0;overflow:hidden}.chat-panel header{padding:.7rem 1rem;border-bottom:2px solid}.chat-panel h3{margin:0;font-size:1rem}.chat-panel h3::before{content:'●';color:#557426;margin-right:.5rem}.chat-scroll{height:390px;overflow:auto;padding:.65rem;overscroll-behavior:contain}.chat-scroll ol{list-style:none;margin:0;padding:0}.chat-scroll li{display:flex;gap:.6rem;align-items:flex-start;padding:.45rem;border:1px solid transparent;border-radius:10px}.chat-scroll li.current{background:#fff1be;border-color:var(--ink);animation:enter .25s var(--ease) both}.chat-scroll strong{font-size:.78rem}.chat-scroll p{margin:0;font-size:.88rem;overflow-wrap:anywhere}
+.meeting-layout{display:grid;grid-template-columns:minmax(0,2fr) minmax(240px,1fr);gap:14px;max-width:1100px;margin:0 auto 1.8rem}.meeting-layout .room{width:100%;margin:0}.chat-panel{background:var(--paper);border:2px solid;border-radius:18px;box-shadow:6px 6px var(--ink);min-width:0;overflow:hidden}.chat-panel header{padding:.7rem 1rem;border-bottom:2px solid}.chat-panel h3{margin:0;font-size:1rem}.chat-panel h3::before{content:'●';color:#557426;margin-right:.5rem}.chat-scroll{height:390px;overflow:auto;padding:.65rem;overscroll-behavior:contain}
 .mascot[data-role]{background:none;border:0;box-shadow:none;display:block;isolation:isolate}.mascot[data-role]::before,.mascot[data-role]::after{content:none}.chat-scroll .mascot[data-role]{width:38px;height:36px}.mascot i{position:absolute;display:block}.mascot .body,.mascot .detail{border:2px solid var(--ink);background:var(--color)}.mascot .body{inset:17% 10% 12%;box-shadow:2px 3px var(--ink)}.mascot .face{inset:40% 26% auto;height:19%;background:radial-gradient(circle at 20% 37%,var(--ink) 0 16%,transparent 20%),radial-gradient(circle at 78% 37%,var(--ink) 0 16%,transparent 20%)}.mascot .face::after{content:'';position:absolute;left:38%;top:54%;width:28%;height:38%;border-bottom:2px solid;border-radius:50%}
 .mascot[data-role=strategy]{--color:#ff965d}.mascot[data-role=strategy] .body{border-radius:6px 14px 17px 8px;transform:rotate(-13deg)}.mascot[data-role=strategy] .detail{inset:5% 25% 22%;background:#ffda70;border-radius:7px;transform:rotate(21deg);z-index:-1}.mascot[data-role=strategy] .face{transform:rotate(-13deg)}
 .mascot[data-role=check]{--color:#86cce5}.mascot[data-role=check] .body{inset:8% 19% 21%;border-radius:40% 40% 8% 8%}.mascot[data-role=check] .detail{inset:72% 6% 7%;border-radius:4px;background:#354662}.mascot[data-role=check] .face::after{border-radius:0}
@@ -87,7 +87,7 @@ h1 span:nth-child(2) i{animation-delay:.12s}
 nav{padding:0 0 0 clamp(1rem,4vw,4rem);gap:.75rem;background:var(--paper);border-bottom:2px solid;min-height:64px}nav strong{font-size:clamp(1.1rem,3.3vw,2.1rem);letter-spacing:-.085em;font-weight:950;white-space:nowrap}.nav-links{display:flex;align-self:stretch}.nav-links a{display:grid;place-items:center;padding:.65rem clamp(.75rem,2.6vw,2rem);border-left:2px solid var(--ink);text-decoration:none;font-size:.9rem;font-weight:750}.nav-links a:hover{background:var(--lime);color:var(--ink)}.nav-links .nav-action{background:var(--ink);color:white}
 .hero{grid-template-columns:minmax(0,1.2fr) minmax(0,1fr)}.pitch{padding:clamp(1.25rem,6vw,6rem)}.pitch h1{font-size:clamp(4rem,10.2vw,10rem);letter-spacing:-.105em;line-height:.84}.pitch .tag{border-bottom:2px solid;padding-bottom:.25rem;letter-spacing:.055em}.pitch p{max-width:27ch;font-size:clamp(1rem,1.7vw,1.3rem);word-break:keep-all}.pitch .button{border-radius:3px;padding:.8rem 1.2rem;box-shadow:4px 4px 0 #a95196}.pitch .button:hover{background:var(--lime);color:var(--ink);box-shadow:6px 6px var(--ink)}
 .art{background:radial-gradient(circle,#17151542 1px,transparent 1.4px) 0 0/20px 20px,var(--lime)}.art::before{width:76%;background:#f4ffb7;box-shadow:7px 7px var(--ink)}.sheet{background:#fffaf1;border-radius:6px}.sheet .stamp{color:#a32558}
-.demo{background:var(--lilac);border-width:2px}.meeting-layout{gap:0;border:2px solid;border-radius:10px;overflow:hidden;box-shadow:7px 7px var(--ink);background:var(--paper)}.meeting-layout .room,.chat-panel{border:0;border-radius:0;box-shadow:none}.chat-panel{border-left:2px solid}.room header,.chat-panel header{min-height:62px;background:var(--paper);border-bottom:2px solid}.chat-scroll li.current{background:#f4dcff}
+.demo{background:var(--lilac);border-width:2px}.meeting-layout{gap:0;border:2px solid;border-radius:10px;overflow:hidden;box-shadow:7px 7px var(--ink);background:var(--paper)}.meeting-layout .room,.chat-panel{border:0;border-radius:0;box-shadow:none}.chat-panel{border-left:2px solid}.room header,.chat-panel header{min-height:62px;background:var(--paper);border-bottom:2px solid}
 .team-section{padding-block:clamp(2.5rem,7vw,6rem)}.team{gap:0;border-block:2px solid}.team .person{background:transparent;border:0;border-radius:0;box-shadow:none;border-right:1px solid;min-height:0;padding:1rem}.team .person:last-child{border-right:0}.team .person:hover{transform:none;box-shadow:none;background:var(--member-color)}
 @media(max-width:850px){.chat-panel{border-left:0;border-top:2px solid}.team{gap:0}.team .person{border-right:0;border-bottom:1px solid}}
 @media(max-width:700px){.hero{grid-template-columns:1fr}.pitch h1{font-size:clamp(4rem,16vw,7rem)}.art{min-height:270px}.nav-links a:first-child{display:none}}
@@ -108,6 +108,15 @@ body.in-room{background:#e4dcf8}.in-room>nav,.in-room>footer,.in-room main>secti
 @media(max-width:700px){.floater-ticket{top:72%}.floater-clip{bottom:5%}.in-room .floor{--avatar:clamp(54px,13vw,74px)}}
 /* Keep this after the neutral card styles so every member, including the last, responds. */
 .team .person:hover{background:var(--member-color)}
+
+/* Scope the SDK layout so existing page controls keep their design. */
+.agent-chat-state{padding:0 .85rem}.agent-chat-state p{margin:.7rem 0;font-size:.85rem;overflow-wrap:anywhere}.agent-chat-state button{margin-bottom:.7rem;font-size:.8rem}
+.chat-scroll.agent-chat{padding:0;height:440px;overflow:hidden}.agent-chat #webchat{height:100%;min-width:0}
+.chat-panel:has(#agent-chat-status:not([hidden])) h3::before{color:#a35d20}
+.agent-chat #webchat button{font:inherit;letter-spacing:normal;box-shadow:none;transform:none;transition:none}
+.agent-chat #webchat p{margin:0 0 .5em}.agent-chat #webchat p:last-child{margin-bottom:0}
+@media(max-width:850px){.chat-scroll.agent-chat{height:420px}}
+.in-room .chat-scroll.agent-chat{height:clamp(340px,55svh,540px)}
 </style>
 <nav><strong>excuse me!</strong><div class="nav-links"><a href="#team">회의 멤버</a><a class="nav-action" href="#demo">회의 체험하기 ↘</a></div></nav>
 <main>
@@ -121,7 +130,7 @@ body.in-room{background:#e4dcf8}.in-room>nav,.in-room>footer,.in-room main>secti
 <section class="idea-strip" aria-labelledby="ideas-title"><h2 id="ideas-title">이런 핑계까지 나와요?</h2>
 <div class="ticker" aria-hidden="true"></div><div class="ticker reverse" aria-hidden="true"></div>
 <button id="ticker-toggle" type="button">흐르는 띠 멈추기</button></section>
-<section class="demo" id="demo"><div class="section"><div class="room-toolbar" hidden><button id="exit-room" type="button">← 안건으로 돌아가기</button><button id="toggle-chat" type="button" aria-expanded="false">대화 기록</button><button id="open-approval" type="button" hidden>결재안 보기 ↘</button></div><div class="meeting-layout"><div class="room" id="room">
+<section class="demo" id="demo"><div class="section"><div class="room-toolbar" hidden><button id="exit-room" type="button">← 안건으로 돌아가기</button><button id="toggle-chat" type="button" aria-expanded="false">에이전트 채팅</button><button id="open-approval" type="button" hidden>결재안 보기 ↘</button></div><div class="meeting-layout"><div class="room" id="room">
 <header><strong>문구 팀 회의실</strong><div><button id="pause-talk" type="button">자동 대화 끄기</button> <button id="next-talk" type="button">다음 발언</button></div></header>
 <div class="floor">
 <div class="board" id="room-board">회의 전 · 잠깐의 잡담</div>
@@ -133,7 +142,7 @@ body.in-room{background:#e4dcf8}.in-room>nav,.in-room>footer,.in-room main>secti
 <div class="seat" data-seat="moderator"><span class="mascot" data-role="moderator" aria-hidden="true"><svg viewBox="7 2 114 112" aria-hidden="true" focusable="false"><g fill="none" stroke="#2D2923" stroke-width="3.3" stroke-linecap="round" stroke-linejoin="round"><path d="M30 59 10 71M96 62 118 51M39 77 35 94 46 100 41 111H28M86 77 91 94 80 100 86 111H99"/><path fill="#B7A0E1" d="M27 72Q20 35 52 24Q85 14 96 50L101 77Q65 93 27 72Z"/><path stroke="#ffffff" stroke-opacity=".22" stroke-width="2" d="M31 43q4-10 13-13"/><g fill="#2D2923" stroke="none"><ellipse cx="44" cy="50" rx="3.5" ry="6"/><ellipse cx="83" cy="50" rx="3.5" ry="6"/></g><path d="M49 65Q63 84 78 65"/><path fill="#B6D9EC" d="M36 30Q24 24 41 15L60 8Q82 12 89 27Q93 38 81 35Q75 44 65 36Q55 42 49 35Q40 41 36 30Z"/><rect x="58" y="3" width="22" height="11" rx="5" fill="#F3E7D2" transform="rotate(16 69 8)"/><path d="M66 20v12m-6-6h12m-10-4 8 8m0-8-8 8M41 25q4-4 9-6" stroke-width="1.2"/></g></svg></span><b>중재</b></div>
 <div class="bubble" id="bubble" aria-hidden="true" hidden><strong></strong><span></span></div>
 </div>
-</div><aside class="chat-panel" aria-labelledby="chat-title"><header><h3 id="chat-title">회의 채팅</h3></header><div class="chat-scroll" id="chat-scroll" tabindex="0" aria-label="회의 발언 기록"><ol id="talk-log" role="log" aria-live="polite"></ol></div></aside></div><div class="panel reveal"><span class="tag">시연 모드 · 예시 답장 · 실제 발송 없음</span><h2>긴급회의실</h2><form id="meeting"><label for="topic">거절하고 싶은 안건</label><input id="topic" type="text" required maxlength="100" value="내일 팀 회식 불참"><button>회의 시작</button></form><div id="result" hidden><div class="message"><b>중재 · 안건 접수</b><p id="agenda"></p></div><div class="message"><b>전략 · 세 가지 후보</b><p>강아지 돌잔치 후보 제안</p></div><div class="message"><b>검증 · 예시 검토</b><p>강아지 돌잔치는 확인 불가 · 농담으로만 허용</p></div><div class="message"><b>인간관계 · 표현 검토</b><p>휴식이 필요하다고 밝히거나 개인 사정을 공개하지 않는 안 제안</p></div><div class="approval"><h3>거절 승인서</h3><p><strong>키워드</strong> · 휴식, 개인 사정, 강아지 돌잔치(농담)</p><p><strong>확인 항목</strong> · 사용자 입력 안건</p><p><strong>관계 영향</strong> · 사정을 길게 설명하지 않고 참석이 어렵다고 전할 수 있어요. 3안도 농담은 밝히고 진짜 거절로 끝내요.</p><fieldset><legend>내 상황에 맞는 이유 선택</legend><label class="choice"><input type="radio" name="reply" value="1"> <b>1안 · 쉬는 시간 확보</b><br>혼자 쉬는 시간이 필요하다면 “오늘은 조금 쉬어가려고 해서 참석이 어렵습니다.”</label><label class="choice"><input type="radio" name="reply" value="2"> <b>2안 · 사정은 비공개</b><br>이유를 자세히 밝히기 어렵다면 “이번에는 참석이 어렵습니다. 초대해 주셔서 감사합니다.”</label><label class="choice choice-joke"><input type="radio" name="reply" value="joke"> <b>3안 · 회의용 아이디어</b> <span aria-hidden="true">🐶</span> 강아지 돌잔치<br>분위기를 풀고 싶다면 “강아지 돌잔치가 있어서요… 는 농담이고, 이번엔 참석이 어렵습니다 😅”<small class="joke-note">⚠ 농담이 통하는 사이에서만 쓰세요</small><span class="joke-stamp">확인 불가</span></label></fieldset><p><small>기안 · 전략 / 사실 검토 · 검증 / 관계 검토 · 인간관계 / 최종 결재 · 사용자</small></p><button id="confirm" type="button" disabled>선택한 안 결재하기</button> <button id="reset" type="button">다시 회의</button><p id="status" role="status"></p></div></div></div></div></section>
+</div><aside class="chat-panel" aria-labelledby="chat-title"><header><h3 id="chat-title">에이전트 채팅</h3></header><div class="agent-chat-state"><p id="agent-chat-status" role="status" aria-live="polite">채팅에 연결하는 중입니다...</p><button id="agent-chat-retry" type="button" hidden>다시 연결하기</button></div><div class="chat-scroll agent-chat" id="chat-scroll"><div id="webchat" role="region" aria-label="에이전트 채팅"></div></div></aside></div><div class="panel reveal"><span class="tag">시연 모드 · 예시 답장 · 실제 발송 없음</span><h2>긴급회의실</h2><form id="meeting"><label for="topic">거절하고 싶은 안건</label><input id="topic" type="text" required maxlength="100" value="내일 팀 회식 불참"><button>회의 시작</button></form><div id="result" hidden><div class="message"><b>중재 · 안건 접수</b><p id="agenda"></p></div><div class="message"><b>전략 · 세 가지 후보</b><p>강아지 돌잔치 후보 제안</p></div><div class="message"><b>검증 · 예시 검토</b><p>강아지 돌잔치는 확인 불가 · 농담으로만 허용</p></div><div class="message"><b>인간관계 · 표현 검토</b><p>휴식이 필요하다고 밝히거나 개인 사정을 공개하지 않는 안 제안</p></div><div class="approval"><h3>거절 승인서</h3><p><strong>키워드</strong> · 휴식, 개인 사정, 강아지 돌잔치(농담)</p><p><strong>확인 항목</strong> · 사용자 입력 안건</p><p><strong>관계 영향</strong> · 사정을 길게 설명하지 않고 참석이 어렵다고 전할 수 있어요. 3안도 농담은 밝히고 진짜 거절로 끝내요.</p><fieldset><legend>내 상황에 맞는 이유 선택</legend><label class="choice"><input type="radio" name="reply" value="1"> <b>1안 · 쉬는 시간 확보</b><br>혼자 쉬는 시간이 필요하다면 “오늘은 조금 쉬어가려고 해서 참석이 어렵습니다.”</label><label class="choice"><input type="radio" name="reply" value="2"> <b>2안 · 사정은 비공개</b><br>이유를 자세히 밝히기 어렵다면 “이번에는 참석이 어렵습니다. 초대해 주셔서 감사합니다.”</label><label class="choice choice-joke"><input type="radio" name="reply" value="joke"> <b>3안 · 회의용 아이디어</b> <span aria-hidden="true">🐶</span> 강아지 돌잔치<br>분위기를 풀고 싶다면 “강아지 돌잔치가 있어서요… 는 농담이고, 이번엔 참석이 어렵습니다 😅”<small class="joke-note">⚠ 농담이 통하는 사이에서만 쓰세요</small><span class="joke-stamp">확인 불가</span></label></fieldset><p><small>기안 · 전략 / 사실 검토 · 검증 / 관계 검토 · 인간관계 / 최종 결재 · 사용자</small></p><button id="confirm" type="button" disabled>선택한 안 결재하기</button> <button id="reset" type="button">다시 회의</button><p id="status" role="status"></p></div></div></div></div></section>
 <section class="section team-section reveal" id="team"><h2>오늘의 회의 멤버</h2><div class="team">
 <article class="person"><span class="mascot" data-role="strategy" aria-hidden="true"><svg viewBox="7 2 114 112" aria-hidden="true" focusable="false"><g fill="none" stroke="#2D2923" stroke-width="3.3" stroke-linecap="round" stroke-linejoin="round"><path d="M30 59 10 71M96 62 118 51M39 77 35 94 46 100 41 111H28M86 77 91 94 80 100 86 111H99"/><path fill="var(--member-color, #FFB65E)" d="M26 76Q11 43 30 31Q36 25 46 25Q43 9 59 18L66 22Q90 9 100 35Q112 43 104 68L97 78Q58 83 26 76Z"/><path stroke="#ffffff" stroke-opacity=".22" stroke-width="2" d="M31 43q4-10 13-13"/><g fill="#2D2923" stroke="none"><ellipse cx="44" cy="50" rx="3.5" ry="6"/><ellipse cx="83" cy="51" rx="4" ry="2"/></g><path d="M52 71Q67 76 76 63"/><path fill="#82736D" d="M58 79h12l-4 7 4 12-6 7-6-7 3-12Z"/></g></svg></span><strong>전략</strong><p>거절 후보를 세 가지로 펼쳐요.</p></article>
 <article class="person"><span class="mascot" data-role="check" aria-hidden="true"><svg viewBox="7 2 114 112" aria-hidden="true" focusable="false"><g fill="none" stroke="#2D2923" stroke-width="3.3" stroke-linecap="round" stroke-linejoin="round"><path d="M30 59 10 71M96 62 118 51M39 77 35 94 46 100 41 111H28M86 77 91 94 80 100 86 111H99"/><path fill="var(--member-color, #B3D2A7)" d="M29 22H91Q104 22 104 36V67Q104 81 90 81H32Q18 81 18 67V36Q18 22 29 22Z"/><path stroke="#ffffff" stroke-opacity=".22" stroke-width="2" d="M31 43q4-10 13-13"/><g fill="#2D2923" stroke="none"><ellipse cx="44" cy="50" rx="3.5" ry="6"/><ellipse cx="83" cy="50" rx="3.5" ry="6"/></g><path d="M54 66H70"/><rect x="30" y="39" width="24" height="20" rx="6"/><rect x="72" y="39" width="24" height="20" rx="6"/><path d="M54 47h18M22 46h8m66 0h6"/></g></svg></span><strong>검증</strong><p>확인한 내용에 도장을 찍어요.</p></article>
@@ -166,7 +175,7 @@ form.addEventListener('submit', (event) => {
   if (!agenda) { topic.focus(); return; }
   clearDecision();
   byId('agenda').textContent = agenda;
-  transcriptOpen = false;
+  transcriptOpen = true;
   syncChat();
   history.pushState(null, '', '#meeting-room');
   renderRoute();
@@ -276,7 +285,6 @@ const room = byId('room');
 const floor = room.querySelector('.floor');
 const bubble = byId('bubble');
 const pauseTalk = byId('pause-talk');
-const log = byId('talk-log');
 const scenes = {
   idle: [
     ['strategy', '자, 오늘의 특가! 회의 전에 쿠키 한 입, 어떠십니까?'],
@@ -344,21 +352,6 @@ function showTurn() {
   bubble.querySelector('span').textContent = line;
   bubble.hidden = false;
   placeBubble();
-  const chat = byId('chat-scroll');
-  const follow = chat.scrollHeight - chat.scrollTop - chat.clientHeight < 32;
-  const entry = document.createElement('li');
-  const copy = document.createElement('div');
-  const author = document.createElement('strong');
-  const message = document.createElement('p');
-  author.textContent = name;
-  message.textContent = line;
-  copy.append(author, message);
-  entry.append(speaker.querySelector('.mascot').cloneNode(true), copy);
-  log.lastElementChild?.classList.remove('current');
-  entry.classList.add('current');
-  log.append(entry);
-  if (log.children.length > 60) log.firstElementChild.remove();
-  if (follow) chat.scrollTop = chat.scrollHeight;
   if (scene === 'meeting' && turn >= lines.length) byId('open-approval').hidden = false;
   if (!autoTalk || !roomVisible) return;
   timer = setTimeout(() => {
@@ -374,7 +367,6 @@ function changeScene(next, title) {
   scene = next;
   turn = 0;
   byId('excuse-prop').dataset.state = 'empty';
-  log.replaceChildren();
   byId('room-board').textContent = title;
   showTurn();
 }
@@ -465,12 +457,11 @@ const toolbar = document.querySelector('.room-toolbar');
 const chatPanel = document.querySelector('.chat-panel');
 const panel = document.querySelector('.panel');
 const approvalButton = byId('open-approval');
-let transcriptOpen = false;
+let transcriptOpen = true;
 function syncChat() {
   chatPanel.hidden = !transcriptOpen && document.body.classList.contains('in-room');
   byId('toggle-chat').setAttribute('aria-expanded', String(transcriptOpen));
-  byId('toggle-chat').textContent = transcriptOpen ? '대화 기록 닫기' : '대화 기록';
-  if (transcriptOpen) byId('chat-scroll').scrollTop = byId('chat-scroll').scrollHeight;
+  byId('toggle-chat').textContent = transcriptOpen ? '채팅창 닫기' : '에이전트 채팅';
 }
 function renderRoute() {
   const inRoom = location.hash === '#meeting-room';
@@ -514,4 +505,131 @@ if (location.hash === '#meeting-room') {
   renderRoute();
   changeScene('meeting', topic.value.trim() || '회의 안건');
 }
-</script></html>
+</script>
+<script>
+(() => {
+  const BROKER_URL = 'https://dl-broker-juwon-4jt3z.azurewebsites.net/api/directlineToken';
+  const SEALED = 'Du5s_pMZ2PUVFTzKNYjnti8mrTUlQ6eBVoopYF2wdm-1c8fo4s6dZPKX24YOydEhLmVggHl-otfW94GuhFq2JHD9Kfp9tcuIRsoZ6-HCfG_t4U3znKXAK425uAj_Vjvgn-txqze_KWOfZ4GPuCBaonx92nxo3DowOG9PlcRbErs1tmyeEvA8PFzMdbnw91jXLHWyqwQiscLyhglfeMuGySHQgRCRJYwlHTUQsySFXiTPBeEXMxT1ZpS6igse-jM11c4JsZW33KkACJOxpHYA4HkvohVkkKlnK8Bq7REFEAchWwkMtKcESYia-VBY4GBmd54BJ5lABQGIihBLBIvOe7uw_tYa6bMDppDVapAa29b3thgI-bDDyTtN-RrJjwSE2DFlnBU_0K5cPpm0LLWjXXLCeUhIdmH2Pas1cJ01bDljkcqmqkYM352g_g-07TqjlJaYvSSilygc63jfCB8zUF4o2iClIPQTljx8FyroBujrR5_aV7hvbqdf4D2IkXysNYb-qHMbIIu1WPuDvnikHefCee9Diam3wuS3_imIyp2vprbftgXpFhb4RT28b72YEYU8wsx3wrthtBtuk-ELl09R5p0KmFrHRMdciA8byha4yEhmaznBDW8F2Wy6_DiFLpjbCka9XQdqIkaz1A';
+  const status = document.getElementById('agent-chat-status');
+  const retry = document.getElementById('agent-chat-retry');
+  const host = document.getElementById('webchat');
+  const userID = 'web_' + crypto.randomUUID();
+  let directLine;
+  let connection;
+  let greeting;
+  let connecting = false;
+  let sdkPromise;
+
+  function showError(message, canRetry = true) {
+    status.hidden = false;
+    status.textContent = message;
+    retry.hidden = !canRetry;
+  }
+  function loadSDK() {
+    if (window.WebChat) return Promise.resolve();
+    if (!sdkPromise) sdkPromise = new Promise((resolve, reject) => {
+      const script = document.createElement('script');
+      script.src = 'https://cdn.botframework.com/botframework-webchat/4.18.0/webchat.js';
+      script.onload = resolve;
+      script.onerror = () => { script.remove(); sdkPromise = undefined; reject(new Error('sdk')); };
+      document.head.append(script);
+    });
+    return sdkPromise;
+  }
+  async function connect() {
+    if (connecting) return;
+    connecting = true;
+    retry.hidden = true;
+    status.hidden = false;
+    status.textContent = '채팅에 연결하는 중입니다...';
+    connection?.unsubscribe();
+    greeting?.unsubscribe();
+    directLine?.end();
+    let timeout;
+    try {
+      try { await loadSDK(); } catch {
+        showError('채팅 구성 요소를 불러오지 못했습니다. 네트워크를 확인한 뒤 다시 연결해 주세요.');
+        return;
+      }
+      const webchat = window.WebChat;
+      if (typeof webchat.createDirectLine !== 'function' || typeof webchat.renderWebChat !== 'function') {
+        showError('채팅 구성 요소를 불러오지 못했습니다. 새로고침해 주세요.', false);
+        return;
+      }
+      const controller = new AbortController();
+      timeout = setTimeout(() => controller.abort(), 20000);
+      let response;
+      try {
+        // Preserve the broker's simple CORS request: no JSON Content-Type header.
+        response = await fetch(BROKER_URL, {
+          method: 'POST', body: JSON.stringify({ sealed: SEALED }), signal: controller.signal
+        });
+      } catch {
+        showError('서버에 연결하지 못했습니다. 네트워크를 확인한 뒤 다시 연결해 주세요.');
+        return;
+      }
+      if (!response.ok) {
+        showError(response.status === 403
+          ? '연결이 거부되었습니다. 봉인값에 등록된 GitHub Pages 주소에서 접속했는지 확인해 주세요 (HTTP 403).'
+          : '서버가 연결 요청을 처리하지 못했습니다 (HTTP ' + response.status + ').');
+        return;
+      }
+      let data;
+      try { data = await response.json(); } catch {
+        showError('서버 응답을 읽을 수 없습니다. 잠시 후 다시 연결해 주세요.');
+        return;
+      }
+      if (!data || typeof data.token !== 'string' || !data.token.trim()) {
+        showError('서버에서 연결 토큰을 받지 못했습니다. 연결 설정을 확인해 주세요.');
+        return;
+      }
+      directLine = webchat.createDirectLine({ token: data.token });
+      webchat.renderWebChat({
+        directLine, userID, locale: 'ko-KR',
+        styleOptions: {
+          primaryFont: 'system-ui, sans-serif', backgroundColor: '#fffaf1',
+          accent: '#64558c', bubbleBackground: '#ffffff', bubbleTextColor: '#171515',
+          bubbleBorderColor: '#171515', bubbleBorderWidth: 1, bubbleBorderRadius: 12,
+          bubbleFromUserBackground: '#e4dcf8', bubbleFromUserTextColor: '#171515',
+          bubbleFromUserBorderColor: '#171515', bubbleFromUserBorderWidth: 1,
+          bubbleFromUserBorderRadius: 12, sendBoxBackground: '#fffdfa',
+          sendBoxTextColor: '#171515', sendBoxPlaceholderColor: '#655d68',
+          sendBoxButtonColor: '#64558c', sendBoxBorderTop: '1px solid #17151580',
+          suggestedActionBackgroundColor: '#e4dcf8', suggestedActionTextColor: '#171515',
+          suggestedActionBorderColor: '#64558c', suggestedActionBorderRadius: 8,
+          hideUploadButton: true, markdownRenderHTML: false
+        }
+      }, host);
+      let greeted = false;
+      connection = directLine.connectionStatus$.subscribe({
+        next(value) {
+          if (value === 2 && !greeted) {
+            greeted = true;
+            status.hidden = true;
+            retry.hidden = true;
+            greeting = directLine.postActivity({
+              type: 'event', name: 'startConversation', from: { id: userID }
+            }).subscribe({
+              error: () => showError('첫 인사를 요청하지 못했습니다. 채팅창에 메시지를 입력해 주세요.', false)
+            });
+          } else if (value === 3 || value === 4 || value === 5) {
+            showError('채팅 연결이 종료되었거나 만료되었습니다. 다시 연결해 주세요.');
+          }
+        },
+        error: () => showError('채팅 연결에 문제가 생겼습니다. 다시 연결해 주세요.')
+      });
+    } catch {
+      showError('채팅을 시작하지 못했습니다. 다시 연결해 주세요.');
+    } finally {
+      clearTimeout(timeout);
+      connecting = false;
+    }
+  }
+  retry.addEventListener('click', connect);
+  window.addEventListener('pagehide', () => {
+    connection?.unsubscribe(); greeting?.unsubscribe(); directLine?.end();
+  });
+  connect();
+})();
+</script>
+</html>
